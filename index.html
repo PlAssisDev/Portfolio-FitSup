@@ -25,8 +25,49 @@
         </ul>
 
         <div class="icons">
-            <a href="#"><i class='bx bx-search-alt-2'></i></a>
-            <a href="#"><i class='bx bxs-user-circle'></i></a>
+            <div id="search-card" class="search-card">
+                <input type="text" id="search-input" placeholder="Pesquisar...">
+                <ul id="search-results" class="search-results">
+                    <!-- Aqui serão exibidas as sugestões de pesquisa -->
+                </ul>
+            </div>
+            <i class='bx bx-search-alt-2' id="search-icon"></i>
+
+
+            <!-- Ícone de usuário -->
+            <a href="/Login/login.html" id="user-icon"><i class='bx bxs-user-circle'></i></a>
+
+            <!-- Modal de login -->
+            <div id="login-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Login</h2>
+                    <form id="login-form">
+                        <input type="email" id="login-email" placeholder="Email" required>
+                        <input type="password" id="login-password" placeholder="Senha" required>
+                        <button type="submit">Entrar</button>
+                    </form>
+                    <p id="login-message"></p>
+                </div>
+            </div>
+
+            <!-- Modal de registro -->
+            <div id="register-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Registro</h2>
+                    <form id="register-form">
+                        <input type="text" id="register-name" placeholder="Nome" required>
+                        <input type="email" id="register-email" placeholder="Email" required>
+                        <input type="password" id="register-password" placeholder="Senha" required>
+                        <button type="submit">Registrar</button>
+                    </form>
+                    <p id="register-message"></p>
+                </div>
+            </div>
+
+
+            
             <a href="#"><i class='bx bxs-shopping-bag'></i></a>
         </div>
     </header>
@@ -89,57 +130,110 @@
     <!-- JS -->
     <script src="/JavaScript/scripts.js"></script>
     <script>
-        // Função para carregar e exibir os produtos do JSON
-        function carregarProdutos() {
-            fetch('/Scripts/produtos.json') // Caminho para o arquivo JSON
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.querySelector('.container');
-                    container.innerHTML = ''; // Limpa os produtos antigos
+        document.addEventListener("DOMContentLoaded", function() {
+            // Função para carregar e exibir os produtos do JSON
+            function carregarProdutos() {
+                fetch('/Scripts/produtos.json') // Caminho para o arquivo JSON
+                    .then(response => response.json())
+                    .then(data => {
+                        const container = document.querySelector('.container');
+                        container.innerHTML = ''; // Limpa os produtos antigos
 
-                    data.produtos.forEach(produto => {
-                        const box = document.createElement('div');
-                        box.classList.add('box');
+                        data.produtos.forEach(produto => {
+                            const box = document.createElement('div');
+                            box.classList.add('box');
 
-                        const img = document.createElement('img');
-                        img.src = `/img/${produto.nome}.png`; // Assume-se que o nome da imagem é igual ao nome do produto
-                        img.alt = produto.nome;
+                            const img = document.createElement('img');
+                            img.src = `/img/${produto.nome}.png`; // Assume-se que o nome da imagem é igual ao nome do produto
+                            img.alt = produto.nome;
 
-                        const nome = document.createElement('h4');
-                        nome.textContent = produto.nome;
+                            const nome = document.createElement('h4');
+                            nome.textContent = produto.nome;
 
-                        const preco = document.createElement('h5');
-                        preco.textContent = produto.preco;
+                            const preco = document.createElement('h5');
+                            preco.textContent = produto.preco;
 
-                        const cart = document.createElement('div');
-                        cart.classList.add('cart');
-                        const cartIcon = document.createElement('i');
-                        cartIcon.classList.add('bx', 'bx-cart');
-                        cart.appendChild(cartIcon);
+                            const cart = document.createElement('div');
+                            cart.classList.add('cart');
+                            const cartIcon = document.createElement('i');
+                            cartIcon.classList.add('bx', 'bx-cart');
+                            cart.appendChild(cartIcon);
 
-                        box.appendChild(img);
-                        box.appendChild(nome);
-                        box.appendChild(preco);
-                        box.appendChild(cart);
+                            box.appendChild(img);
+                            box.appendChild(nome);
+                            box.appendChild(preco);
+                            box.appendChild(cart);
 
-                        container.appendChild(box);
+                            container.appendChild(box);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Erro ao carregar os produtos:', error);
                     });
-                })
-                .catch(error => {
-                    console.error('Erro ao carregar os produtos:', error);
+            }
+
+            // Função para atualizar os produtos a cada intervalo de tempo
+            function atualizarProdutos() {
+                carregarProdutos(); // Carrega os produtos inicialmente
+
+                // Define um intervalo para atualizar os produtos a cada 5 minutos (300000 milissegundos)
+                setInterval(carregarProdutos, 300000); // 5 minutos
+            }
+
+            // Chama a função para atualizar os produtos
+            atualizarProdutos();
+
+            // Adicionar um listener de evento ao ícone de pesquisa
+            const searchIcon = document.getElementById("search-icon");
+            const searchCard = document.getElementById("search-card");
+            const searchInput = document.getElementById("search-input");
+            const searchResults = document.getElementById("search-results");
+
+            searchIcon.addEventListener("click", () => {
+                searchCard.classList.toggle("active"); // Adiciona ou remove a classe 'active' para mostrar ou ocultar o modal de pesquisa
+                searchInput.focus(); // Coloca o foco no campo de pesquisa ao abrir o modal
+            });
+
+            // Função para pesquisar produtos
+            function pesquisarProdutos(textoPesquisa) {
+                // Limpa os resultados anteriores
+                searchResults.innerHTML = '';
+
+                // Filtra os produtos que correspondem à pesquisa
+                var resultados = allProducts.filter(produto => produto.nome.toLowerCase().includes(textoPesquisa.toLowerCase()));
+
+                // Cria elementos HTML para cada resultado de pesquisa
+                resultados.forEach(resultado => {
+                    var li = document.createElement('li');
+                    li.textContent = resultado.nome;
+                    // Adiciona um listener de evento para o clique no nome do produto
+                    li.addEventListener('click', function() {
+                        // Encontrar o índice do produto na lista original
+                        var indice = data.produtos.findIndex(p => p.nome === resultado.nome);
+                        // Rolar para o card do produto
+                        container.children[indice].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    searchResults.appendChild(li);
                 });
-        }
+            }
 
-        // Função para atualizar os produtos a cada intervalo de tempo
-        function atualizarProdutos() {
-            carregarProdutos(); // Carrega os produtos inicialmente
+            // Adicionar um ouvinte de evento de entrada ao campo de pesquisa
+            searchInput.addEventListener('input', function() {
+                var textoPesquisa = searchInput.value.trim(); // Obtém o texto digitado e remove espaços em branco desnecessários
+                pesquisarProdutos(textoPesquisa); // Pesquisa produtos com base no texto digitado
+            });
+        });
 
-            // Define um intervalo para atualizar os produtos a cada 5 minutos (300000 milissegundos)
-            setInterval(carregarProdutos, 300000); // 5 minutos
-        }
-
-        // Chama a função para atualizar os produtos
-        atualizarProdutos();
+        document.addEventListener("DOMContentLoaded", function() {
+            const userIcon = document.getElementById("user-icon");
+        
+            // Redirecionar para a página de login e registro ao clicar no ícone do usuário
+            userIcon.addEventListener("click", function() {
+                // Altere 'login.html' para o caminho da sua página de login e registro
+                window.location.href = "login.html";
+            });
+        });
+        
     </script>
 </body>
 </html>

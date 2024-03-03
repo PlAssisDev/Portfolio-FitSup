@@ -1,0 +1,64 @@
+/* Estilos para a página de registro */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f3f4f6;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    max-width: 90%;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #0056b3;
+}
+
+.form-container p {
+    margin-top: 15px;
+}
+
+.form-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-container a:hover {
+    text-decoration: underline;
+}
