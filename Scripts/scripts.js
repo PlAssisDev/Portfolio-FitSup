@@ -224,3 +224,90 @@ document.addEventListener("DOMContentLoaded", function() {
       // Onde 'register' é uma função que você definirá para processar o registro
   });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const cartIcon = document.getElementById("cart-icon");
+    const cartSidebar = document.getElementById("cart-sidebar");
+    const closeCart = document.getElementById("close-cart");
+
+    cartIcon.addEventListener("click", function() {
+        cartSidebar.classList.add("active");
+    });
+
+    closeCart.addEventListener("click", function() {
+        cartSidebar.classList.remove("active");
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Função para adicionar um produto ao carrinho
+    function adicionarProdutoAoCarrinho(event) {
+        // Evita o comportamento padrão do link
+        event.preventDefault();
+
+        // Obtém o elemento pai do botão clicado (o elemento .box)
+        const box = event.target.closest('.bx');
+
+        // Obtém o ID do produto associado a este box
+        const productId = box.dataset.productId;
+
+        // Adiciona o produto ao carrinho (lógica a ser implementada posteriormente)
+        adicionarAoCarrinho(productId);
+
+        // Atualiza a interface do usuário para refletir o novo estado do carrinho (lógica a ser implementada posteriormente)
+        atualizarInterfaceDoUsuario();
+    }
+
+    // Adiciona um ouvinte de evento de clique a todos os botões "Adicionar ao Carrinho"
+    const botoesAdicionarAoCarrinho = document.querySelectorAll('.cart');
+    botoesAdicionarAoCarrinho.forEach(botao => {
+        botao.addEventListener('click', adicionarProdutoAoCarrinho);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Função para adicionar um produto ao carrinho
+    function adicionarProdutoAoCarrinho(event) {
+        // Evita o comportamento padrão do link
+        event.preventDefault();
+
+        // Obtém o elemento pai do botão clicado (o elemento .box)
+        const box = event.target.closest('.box');
+
+        // Obtém o ID do produto associado a este botão de adicionar ao carrinho
+        const productId = event.target.dataset.productId;
+
+        // Verifica se o produto possui um ID válido
+        if (productId) {
+            // Você pode fazer o que quiser com o ID do produto aqui, como adicionar ao carrinho
+            console.log("Produto adicionado ao carrinho com o ID:", productId);
+        } else {
+            console.error("O botão 'Adicionar ao Carrinho' não possui um ID de produto válido.");
+        }
+    }
+
+    // Adiciona um ouvinte de evento de clique a todos os botões "Adicionar ao Carrinho"
+    const botoesAdicionarAoCarrinho = document.querySelectorAll('.cart');
+    botoesAdicionarAoCarrinho.forEach(botao => {
+        botao.addEventListener('click', adicionarProdutoAoCarrinho);
+    });
+});
+
+// Função para adicionar um produto ao carrinho
+function adicionarAoCarrinho(produto) {
+    // Verificar se o produto já está no carrinho
+    const produtoExistente = carrinho.find(item => item.id === produto.id);
+
+    if (produtoExistente) {
+        // Se o produto já estiver no carrinho, aumentar a quantidade
+        produtoExistente.quantidade++;
+    } else {
+        // Se o produto não estiver no carrinho, adicionar como novo item
+        carrinho.push({ ...produto, quantidade: 1 });
+    }
+
+    // Atualizar a interface do usuário para refletir o novo estado do carrinho
+    atualizarInterfaceDoUsuario();
+}
+
+

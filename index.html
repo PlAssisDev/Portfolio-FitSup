@@ -68,7 +68,23 @@
 
 
             
-            <a href="#"><i class='bx bxs-shopping-bag'></i></a>
+            <!-- Ícone de carrinho de compras -->
+            <a href="#" id="cart-icon"><i class='bx bx-cart'></i></a>
+
+            <!-- Estrutura da aba do carrinho -->
+            <div id="cart-sidebar" class="cart-sidebar">
+                <div class="cart-header">
+                    <h3>Seu Carrinho</h3>
+                    <button id="close-cart"><i class='bx bx-x'></i></button>
+                </div>
+                <div class="cart-items">
+                    <!-- Aqui serão exibidos os itens do carrinho -->
+                </div>
+                <div class="cart-footer">
+                    <button id="clear-cart">Limpar Carrinho</button>
+                    <button id="checkout">Finalizar Compra</button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -128,7 +144,7 @@
     </div>
 
     <!-- JS -->
-    <script src="/JavaScript/scripts.js"></script>
+    <script src="/Scripts/scripts.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Função para carregar e exibir os produtos do JSON
@@ -138,32 +154,46 @@
                     .then(data => {
                         const container = document.querySelector('.container');
                         container.innerHTML = ''; // Limpa os produtos antigos
-
+        
                         data.produtos.forEach(produto => {
                             const box = document.createElement('div');
                             box.classList.add('box');
-
+        
                             const img = document.createElement('img');
                             img.src = `/img/${produto.nome}.png`; // Assume-se que o nome da imagem é igual ao nome do produto
                             img.alt = produto.nome;
-
+        
                             const nome = document.createElement('h4');
                             nome.textContent = produto.nome;
-
+        
                             const preco = document.createElement('h5');
                             preco.textContent = produto.preco;
-
+        
+                            // Criar o elemento do ícone do carrinho
                             const cart = document.createElement('div');
                             cart.classList.add('cart');
                             const cartIcon = document.createElement('i');
                             cartIcon.classList.add('bx', 'bx-cart');
                             cart.appendChild(cartIcon);
-
+        
+                            // Adicionar evento de clique ao ícone do carrinho
+                            cartIcon.addEventListener('click', function() {
+                                // Aqui você pode adicionar a lógica para adicionar o produto ao carrinho
+                                // Por exemplo, você pode obter os detalhes do produto associado a este ícone
+                                // e, em seguida, adicioná-lo ao carrinho ou exibir uma mensagem de confirmação
+                                
+                                // Por enquanto, vamos apenas exibir uma mensagem no console para teste
+                                console.log('Ícone do carrinho clicado!');
+                            });
+        
+                            // Adicionar o elemento do ícone do carrinho ao seu contêiner de produtos
+                            box.appendChild(cart);
+        
                             box.appendChild(img);
                             box.appendChild(nome);
                             box.appendChild(preco);
                             box.appendChild(cart);
-
+        
                             container.appendChild(box);
                         });
                     })
@@ -171,37 +201,37 @@
                         console.error('Erro ao carregar os produtos:', error);
                     });
             }
-
+        
             // Função para atualizar os produtos a cada intervalo de tempo
             function atualizarProdutos() {
                 carregarProdutos(); // Carrega os produtos inicialmente
-
+        
                 // Define um intervalo para atualizar os produtos a cada 5 minutos (300000 milissegundos)
                 setInterval(carregarProdutos, 300000); // 5 minutos
             }
-
+        
             // Chama a função para atualizar os produtos
             atualizarProdutos();
-
+        
             // Adicionar um listener de evento ao ícone de pesquisa
             const searchIcon = document.getElementById("search-icon");
             const searchCard = document.getElementById("search-card");
             const searchInput = document.getElementById("search-input");
             const searchResults = document.getElementById("search-results");
-
+        
             searchIcon.addEventListener("click", () => {
                 searchCard.classList.toggle("active"); // Adiciona ou remove a classe 'active' para mostrar ou ocultar o modal de pesquisa
                 searchInput.focus(); // Coloca o foco no campo de pesquisa ao abrir o modal
             });
-
+        
             // Função para pesquisar produtos
             function pesquisarProdutos(textoPesquisa) {
                 // Limpa os resultados anteriores
                 searchResults.innerHTML = '';
-
+        
                 // Filtra os produtos que correspondem à pesquisa
                 var resultados = allProducts.filter(produto => produto.nome.toLowerCase().includes(textoPesquisa.toLowerCase()));
-
+        
                 // Cria elementos HTML para cada resultado de pesquisa
                 resultados.forEach(resultado => {
                     var li = document.createElement('li');
@@ -216,23 +246,58 @@
                     searchResults.appendChild(li);
                 });
             }
-
+        
             // Adicionar um ouvinte de evento de entrada ao campo de pesquisa
             searchInput.addEventListener('input', function() {
                 var textoPesquisa = searchInput.value.trim(); // Obtém o texto digitado e remove espaços em branco desnecessários
                 pesquisarProdutos(textoPesquisa); // Pesquisa produtos com base no texto digitado
             });
         });
-
+        
         document.addEventListener("DOMContentLoaded", function() {
             const userIcon = document.getElementById("user-icon");
-        
+          
             // Redirecionar para a página de login e registro ao clicar no ícone do usuário
             userIcon.addEventListener("click", function() {
                 // Altere 'login.html' para o caminho da sua página de login e registro
-                window.location.href = "login.html";
+                window.location.href = "../login/login.html";
             });
         });
+          
+        function carregarProdutos() {
+            // Suponha que você carregue os produtos do JSON e os armazene em uma variável chamada 'produtos'
+            produtos.forEach(produto => {
+                // Crie um elemento div para representar o produto
+                const box = document.createElement('div');
+                box.classList.add('box');
+          
+                // Crie um elemento h4 para o nome do produto
+                const nome = document.createElement('h4');
+                nome.textContent = produto.nome;
+          
+                // Crie um elemento h5 para o preço do produto
+                const preco = document.createElement('h5');
+                preco.textContent = produto.preco;
+          
+                // Crie um elemento de botão para adicionar o produto ao carrinho
+                const btnAdicionar = document.createElement('button');
+                btnAdicionar.textContent = 'Adicionar ao Carrinho';
+                btnAdicionar.addEventListener('click', () => {
+                    adicionarProdutoAoCarrinho(produto);
+                });
+          
+                // Adicione os elementos ao box
+                box.appendChild(nome);
+                box.appendChild(preco);
+                box.appendChild(btnAdicionar);
+          
+                // Adicione o box à lista de produtos
+                document.getElementById('produtos').appendChild(box);
+            });
+        }
+        
+        // Chamada da função para carregar os produtos
+        carregarProdutos();
         
     </script>
 </body>

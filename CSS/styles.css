@@ -348,3 +348,108 @@ section {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Estilos para a aba do carrinho */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto; /* Adicionado para rolagem quando a altura da aba exceder a tela */
+}
+
+.cart-sidebar.active {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #3190f7; /* Cor de fundo azul */
+    color: #fff; /* Cor do texto branco */
+}
+
+.cart-header h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Estilização dos botões no cabeçalho */
+.cart-header button {
+    font-size: 20px;
+    color: #3190f7; /* Cor azul para os ícones */
+    background-color: transparent; /* Remove o fundo */
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.cart-header button:hover {
+    color: #0056b3; /* Cor azul mais escura ao passar o mouse */
+}
+
+.cart-items {
+    padding: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-item-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.cart-item-price {
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+}
+
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0; /* Cor de fundo cinza claro */
+    border-top: 1px solid #ccc;
+}
+
+/* Estilização dos botões no rodapé */
+.cart-footer button {
+    font-size: 18px;
+    font-weight: bold; /* Texto em negrito */
+    color: #fff; /* Cor branca para o texto */
+    background-color: #3190f7; /* Cor azul para o fundo */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Espaçamento entre os botões */
+}
+
+.cart-footer button:hover {
+    background-color: #0056b3; /* Cor azul mais escura ao passar o mouse */
+}

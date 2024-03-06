@@ -1,50 +1,62 @@
 {
     "produtos": [
         {
+            "id": 1,
             "nome": "Whey Protein",
             "preco": "R$90,00"
         },
         {
+            "id": 2,
             "nome": "Creatina",
             "preco": "R$50,00"
         },
         {
+            "id": 3,
             "nome": "Barra de Proteína",
             "preco": "R$110,00"
         },
         {
+            "id": 4,
             "nome": "Pré-treino",
             "preco": "R$80,00"
         },
         {
+            "id": 5,
             "nome": "BCAA",
             "preco": "R$70,00"
         },
         {
+            "id": 6,
             "nome": "Caseína",
             "preco": "R$75,00"
         },
         {
+            "id": 7,
             "nome": "Colágeno",
             "preco": "R$45,00"
         },
         {
+            "id": 8,
             "nome": "Glucosamina",
             "preco": "R$55,00"
         },
         {
+            "id": 9,
             "nome": "Glutamina",
             "preco": "R$60,00"
         },
         {
+            "id": 10,
             "nome": "Multivitaminíco",
             "preco": "R$30,00"
         },
         {
+            "id": 11,
             "nome": "Ômega-3",
             "preco": "R$40,00"
         },
         {
+            "id": 12,
             "nome": "Termogênico",
             "preco": "R$65,00"
         }
