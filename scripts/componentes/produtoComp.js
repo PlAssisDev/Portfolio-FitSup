@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Função para carregar e exibir os produtos do JSON
     function carregarProdutos() {
-        fetch('/Scripts/produtos.json') // Caminho para o arquivo JSON
+        fetch('../Scripts/produtos.json') // Caminho para o arquivo JSON
             .then(response => response.json())
             .then(data => {
                 const container = document.querySelector('.container');

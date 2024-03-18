@@ -25,67 +25,16 @@
         </ul>
 
         <div class="icons">
-            <div id="search-card" class="search-card">
-                <input type="text" id="search-input" placeholder="Pesquisar...">
-                <ul id="search-results" class="search-results">
-                    <!-- Aqui serão exibidas as sugestões de pesquisa -->
-                </ul>
-            </div>
+            <div id="search-card" class="search-card"></div>
             <i class='bx bx-search-alt-2' id="search-icon"></i>
-
-
+        
             <!-- Ícone de usuário -->
             <a href="/Login/login.html" id="user-icon"><i class='bx bxs-user-circle'></i></a>
-
-            <!-- Modal de login -->
-            <div id="login-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Login</h2>
-                    <form id="login-form">
-                        <input type="email" id="login-email" placeholder="Email" required>
-                        <input type="password" id="login-password" placeholder="Senha" required>
-                        <button type="submit">Entrar</button>
-                    </form>
-                    <p id="login-message"></p>
-                </div>
-            </div>
-
-            <!-- Modal de registro -->
-            <div id="register-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Registro</h2>
-                    <form id="register-form">
-                        <input type="text" id="register-name" placeholder="Nome" required>
-                        <input type="email" id="register-email" placeholder="Email" required>
-                        <input type="password" id="register-password" placeholder="Senha" required>
-                        <button type="submit">Registrar</button>
-                    </form>
-                    <p id="register-message"></p>
-                </div>
-            </div>
-
-
-            
+        
             <!-- Ícone de carrinho de compras -->
             <a href="#" id="cart-icon"><i class='bx bx-cart'></i></a>
-
-            <!-- Estrutura da aba do carrinho -->
-            <div id="cart-sidebar" class="cart-sidebar">
-                <div class="cart-header">
-                    <h3>Seu Carrinho</h3>
-                    <button id="close-cart"><i class='bx bx-x'></i></button>
-                </div>
-                <div class="cart-items">
-                    <!-- Aqui serão exibidos os itens do carrinho -->
-                </div>
-                <div class="cart-footer">
-                    <button id="clear-cart">Limpar Carrinho</button>
-                    <button id="checkout">Finalizar Compra</button>
-                </div>
-            </div>
         </div>
+        
     </header>
 
     <!-- começo da loja -->
@@ -144,7 +93,9 @@
     </footer>
 
     <!-- JS -->
-    <script src="/Scripts/scripts.js"></script>
-    <script src="/Scripts/componenteProduto.js"></script>
+    <script src="/scripts/componentes/produtoComp.js"></script>
+    <script src="/scripts/componentes//navbarComp.js"></script>
+    <script src="/scripts/componentes/pesquisaComp.js"></script>
+
 </body>
 </html>
