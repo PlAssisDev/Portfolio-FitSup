@@ -286,7 +286,7 @@ section {
 
 /* Estilo para esconder elementos inicialmente */
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* Estilo para a caixa de pesquisa */
@@ -296,12 +296,16 @@ section {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    width: 50rem; /* Largura de 20 rem */
-    height: 30rem; /* Altura de 15 rem */
+    width: 50rem; /* Largura de 50 rem */
+    max-height: 30rem;
+    min-height: 30rem;
+    overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.342);
     border-radius: 10px; /* Bordas arredondadas */
     z-index: 1000; /* Certifique-se de que a caixa de pesquisa está acima de outros elementos */
     padding: 25px;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-input {
@@ -313,6 +317,14 @@ section {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra leve ao receber foco */
     outline: none; /* Remove a borda ao focar */
     margin-bottom: 20px;
+}
+
+.search-results{
+    overflow-y: scroll;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .row {
