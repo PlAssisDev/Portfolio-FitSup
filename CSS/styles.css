@@ -284,148 +284,53 @@ section {
     transition: opacity .2s ease-out;
 }
 
-.highlight {
-    border: 2px solid #f00;
+/* Estilo para esconder elementos inicialmente */
+.hidden {
+    display: none;
 }
 
-/* Estilo para o modal */
-.modal {
-    display: none; /* Oculta por padrão */
-    position: fixed; /* Fica posicionado fixamente na tela */
-    z-index: 1; /* Coloca o modal sobre tudo */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Adiciona rolagem caso o conteúdo seja maior que a tela */
-    background-color: rgba(0,0,0,0.4); /* Cor de fundo escura com transparência */
-}
-
-/* Estilo para o conteúdo do modal */
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-/* Estilo para o botão de fechar (X) */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Estilos para a aba do carrinho */
-.cart-sidebar {
+/* Estilo para a caixa de pesquisa */
+#search-box {
     position: fixed;
-    top: 0;
-    right: -300px;
-    width: 300px;
-    height: 100%;
-    background-color: #fff;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    transition: right 0.3s ease;
-    z-index: 1000;
-    overflow-y: auto; /* Adicionado para rolagem quando a altura da aba exceder a tela */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 50rem; /* Largura de 20 rem */
+    height: 30rem; /* Altura de 15 rem */
+    border: 1px solid rgba(0, 0, 0, 0.342);
+    border-radius: 10px; /* Bordas arredondadas */
+    z-index: 1000; /* Certifique-se de que a caixa de pesquisa está acima de outros elementos */
+    padding: 25px;
 }
 
-.cart-sidebar.active {
-    right: 0;
-}
-
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #3190f7; /* Cor de fundo azul */
-    color: #fff; /* Cor do texto branco */
-}
-
-.cart-header h3 {
-    margin: 0;
-    font-size: 24px;
-}
-
-/* Estilização dos botões no cabeçalho */
-.cart-header button {
-    font-size: 20px;
-    color: #3190f7; /* Cor azul para os ícones */
-    background-color: transparent; /* Remove o fundo */
+.search-input {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #f0f0f0; /* Cor de fundo cinza claro */
     border: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.cart-header button:hover {
-    color: #0056b3; /* Cor azul mais escura ao passar o mouse */
-}
-
-.cart-items {
-    padding: 20px;
-}
-
-.cart-item {
-    display: flex;
-    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra leve ao receber foco */
+    outline: none; /* Remove a borda ao focar */
     margin-bottom: 20px;
 }
 
-.cart-item img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-}
-
-.cart-item-details {
-    flex-grow: 1;
-}
-
-.cart-item-name {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.cart-item-price {
-    font-size: 16px;
-    color: #555;
-    margin: 0;
-}
-
-.cart-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+.row {
+    width: 100%;
+    height: 1px; /* Altura da linha */
     background-color: #f0f0f0; /* Cor de fundo cinza claro */
-    border-top: 1px solid #ccc;
 }
 
-/* Estilização dos botões no rodapé */
-.cart-footer button {
-    font-size: 18px;
-    font-weight: bold; /* Texto em negrito */
-    color: #fff; /* Cor branca para o texto */
-    background-color: #3190f7; /* Cor azul para o fundo */
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-right: 10px; /* Espaçamento entre os botões */
+
+/* Estilo para o fundo escurecido */
+#backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor escura com transparência */
+    z-index: 999; /* Certifique-se de que o fundo escurecido está abaixo da caixa de pesquisa */
 }
 
-.cart-footer button:hover {
-    background-color: #0056b3; /* Cor azul mais escura ao passar o mouse */
-}
+
