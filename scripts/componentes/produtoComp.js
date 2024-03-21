@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 data.produtos.forEach(produto => {
                     const box = document.createElement('div');
                     box.classList.add('box');
+                    box.id = produto.nome;
 
                     const img = document.createElement('img');
                     img.src = `/img/${produto.nome}.png`; // Assume-se que o nome da imagem é igual ao nome do produto
