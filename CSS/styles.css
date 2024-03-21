@@ -20,6 +20,8 @@ body {
     color: var(--text-color);
 }
 
+
+
 header {
     width: 100%;
     top: 0;
@@ -308,29 +310,62 @@ section {
     flex-direction: column;
 }
 
+
 .search-input {
     width: 100%;
     padding: 0.5rem;
     background-color: #f0f0f0; /* Cor de fundo cinza claro */
     border: none;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra leve ao receber foco */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra leve  */
     outline: none; /* Remove a borda ao focar */
-    margin-bottom: 20px;
 }
 
-.search-results{
-    overflow-y: scroll;
+.search-results {
+    overflow-y: auto;
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.1rem;
+}
+
+.search-results::-webkit-scrollbar {
+    width: 0; /* Esconde o scrollbar horizontal */
+    height: 0; /* Esconde o scrollbar vertical */
+}
+
+/* Estilo para cada produto */
+.produto{
+    display: flex;
+    align-items: center; /* Alinhar os itens verticalmente ao centro */
+    margin-bottom: 20px; /* Espaçamento inferior entre os produtos */
+    background-color: #f3f3f3;
+    border-radius: 10px;
+}
+
+/* Estilo para a imagem do produto */
+.produto img {
+    width: 150px; /* Definir a largura desejada para a imagem */
+    height: auto; /* Permitir que a altura seja ajustada automaticamente */
+    margin-right: 20px; /* Espaçamento à direita da imagem para separá-la do texto */
+}
+
+/* Estilo para o nome do produto */
+.produto p {
+    margin-bottom: 0.3rem; /* Remover margens padrão */;
+    font-size: 20px;
+}
+.produto:hover{
+    background-color: #e4e4e4;
 }
 
 .row {
     width: 100%;
     height: 1px; /* Altura da linha */
     background-color: #f0f0f0; /* Cor de fundo cinza claro */
+    margin: 1rem auto;
+
+;
 }
 
 

@@ -61,15 +61,38 @@ function renderizarResultados(resultados) {
     resultados.forEach(produto => {
         const divProduto = document.createElement('div');
         divProduto.classList.add('produto');
-
+    
+        // Div para a imagem do produto
+        const divImagem = document.createElement('div');
+        divImagem.classList.add('imagem-produto');
+    
+        // Adicionar a imagem do produto
+        const imagemProduto = document.createElement('img');
+        imagemProduto.src = `img/${produto.nome}.png`; // Assumindo que as imagens estão no formato PNG e estão na pasta "img"
+        imagemProduto.alt = produto.nome;
+        divImagem.appendChild(imagemProduto);
+    
+        // Adicionar a div da imagem à div do produto
+        divProduto.appendChild(divImagem);
+    
+        // Div para os textos (nome e preço)
+        const divTextos = document.createElement('div');
+        divTextos.classList.add('textos-produto');
+    
         const nomeProduto = document.createElement('p');
         nomeProduto.textContent = produto.nome;
-
+    
         const precoProduto = document.createElement('p');
         precoProduto.textContent = produto.preco;
-
-        divProduto.appendChild(nomeProduto);
-        divProduto.appendChild(precoProduto);
+    
+        // Adicionar os textos à div de textos
+        divTextos.appendChild(nomeProduto);
+        divTextos.appendChild(precoProduto);
+    
+        // Adicionar a div de textos à div do produto
+        divProduto.appendChild(divTextos);
+    
+        // Adicionar o produto à lista de resultados
         searchResults.appendChild(divProduto);
     });
 }
@@ -77,8 +100,15 @@ function renderizarResultados(resultados) {
 // Event listener para detectar quando o usuário digitar na barra de pesquisa
 document.getElementById('search-input').addEventListener('input', function(event) {
     const termo = event.target.value.trim(); // Obter o termo de pesquisa e remover espaços em branco desnecessários
-    pesquisarProduto(termo); // Realizar a pesquisa
-});
+    if (termo === '') {
+        // Se o termo de pesquisa estiver vazio, limpar os resultados
+        const searchResults = document.getElementById('search-results');
+        searchResults.innerHTML = '';
+    } else {
+        // Se houver um termo de pesquisa, realizar a pesquisa
+        pesquisarProduto(termo);
+    }
+})
 
 
 /* Fim funcionalidade da barra de pesquisa */
