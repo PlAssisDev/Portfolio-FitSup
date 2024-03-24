@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     const preco = document.createElement('h5');
                     preco.textContent = produto.preco;
+                    preco.classList.add('preco'); // Adiciona a classe 'preco' para estilização CSS
 
                     // Criar o elemento do ícone do carrinho
                     const cart = document.createElement('div');
@@ -30,24 +31,19 @@ document.addEventListener("DOMContentLoaded", function() {
                     cart.appendChild(cartIcon);
 
                     // Adicionar evento de clique ao ícone do carrinho
-                    cartIcon.addEventListener('click', function() {
-                        // Aqui você pode adicionar a lógica para adicionar o produto ao carrinho
-                        // Por exemplo, você pode obter os detalhes do produto associado a este ícone
-                        // e, em seguida, adicioná-lo ao carrinho ou exibir uma mensagem de confirmação
-                        
-                        // Por enquanto, vamos apenas exibir uma mensagem no console para teste
-                        console.log('Ícone do carrinho clicado!');
+                    cart.addEventListener('click', function() {
+                        // Adicionar o produto ao carrinho de compras
+                        adicionarProdutoAoCarrinho(produto);
+                        console.log('Produto adicionado ao carrinho:', produto.nome);
                     });
 
-                    // Adicionar o elemento do ícone do carrinho ao seu contêiner de produtos
-                        box.appendChild(cart);
-    
-                        box.appendChild(img);
-                        box.appendChild(nome);
-                        box.appendChild(preco);
-                        box.appendChild(cart);
-    
-                        container.appendChild(box);
+                    // Adicionar elementos ao contêiner do produto
+                    box.appendChild(img);
+                    box.appendChild(nome);
+                    box.appendChild(preco); // Adiciona o preço abaixo do nome
+                    box.appendChild(cart);
+
+                    container.appendChild(box);
                 });
             })
             .catch(error => {
@@ -55,15 +51,96 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 
-    // Função para atualizar os produtos a cada intervalo de tempo
-    function atualizarProdutos() {
-        carregarProdutos(); // Carrega os produtos inicialmente
-
-        // Define um intervalo para atualizar os produtos a cada 5 minutos (300000 milissegundos)
-        setInterval(carregarProdutos, 300000); // 5 minutos
+    // Função para adicionar um produto ao carrinho de compras
+    function adicionarProdutoAoCarrinho(produto) {
+        let carrinhoDeCompras = obterCarrinhoDeCompras();
+        // Verifica se o produto já está no carrinho
+        const produtoExistente = carrinhoDeCompras.find(item => item.nome === produto.nome);
+        if (!produtoExistente) {
+            // Se o produto não estiver no carrinho, adiciona-o com quantidade 1
+            produto.quantidade = 1;
+            carrinhoDeCompras.push(produto);
+        } else {
+            // Se o produto já estiver no carrinho, incrementa a quantidade
+            produtoExistente.quantidade++;
+        }
+        atualizarCarrinho(carrinhoDeCompras); // Atualiza o carrinho após adicionar o produto
+        salvarCarrinhoNoLocalStorage(carrinhoDeCompras); // Salva o carrinho no armazenamento local
     }
 
-    // Chama a função para atualizar os produtos
-    atualizarProdutos();
+    // Função para obter o carrinho de compras do armazenamento local
+    function obterCarrinhoDeCompras() {
+        return JSON.parse(localStorage.getItem('carrinhoDeCompras')) || [];
+    }
 
+    // Função para salvar o carrinho de compras no armazenamento local
+    function salvarCarrinhoNoLocalStorage(carrinhoDeCompras) {
+        localStorage.setItem('carrinhoDeCompras', JSON.stringify(carrinhoDeCompras));
+    }
+
+    // Função para limpar o carrinho de compras ao recarregar a página
+    function limparCarrinhoAoRecarregar() {
+        localStorage.removeItem('carrinhoDeCompras');
+    }
+
+    // Função para atualizar a exibição do carrinho de compras na interface do usuário
+    function atualizarCarrinho(carrinhoDeCompras) {
+        const carrinhoSidebar = document.getElementById('cart-sidebar');
+        if (carrinhoSidebar) {
+            carrinhoSidebar.innerHTML = '';
+
+            // Adicionar o título do carrinho
+            const tituloCarrinho = document.createElement('h2');
+            tituloCarrinho.textContent = "Seu Carrinho de Compras";
+            carrinhoSidebar.appendChild(tituloCarrinho);
+
+            // Crie elementos para cada produto no carrinho e adicione-os ao carrinho na interface do usuário
+            carrinhoDeCompras.forEach(produto => {
+                // Cria um elemento de contêiner para o produto
+                const produtoElemento = document.createElement('div');
+                produtoElemento.classList.add('produto-item');
+
+                // Adiciona a imagem do produto
+                const img = document.createElement('img');
+                img.src = `/img/${produto.nome}.png`; // Caminho da imagem do produto
+                img.alt = produto.nome; // Texto alternativo para a imagem
+                img.classList.add('produto-imagem'); // Adiciona uma classe para estilização CSS
+                produtoElemento.appendChild(img);
+
+                // Adiciona o nome do produto
+                const nomeProduto = document.createElement('div');
+                nomeProduto.textContent = produto.nome;
+                nomeProduto.classList.add('produto-nome');
+                produtoElemento.appendChild(nomeProduto);
+
+                // Adiciona a quantidade do produto
+                const quantidadeProduto = document.createElement('div');
+                quantidadeProduto.textContent = `Quantidade: ${produto.quantidade}`;
+                quantidadeProduto.classList.add('produto-quantidade');
+                produtoElemento.appendChild(quantidadeProduto);
+
+                // Adiciona o preço do produto
+                const precoProduto = document.createElement('div');
+                precoProduto.textContent = `Preço: ${produto.preco}`;
+                precoProduto.classList.add('produto-preco');
+                produtoElemento.appendChild(precoProduto);
+
+                // Adiciona o produto ao carrinho na interface do usuário
+                carrinhoSidebar.appendChild(produtoElemento);
+            });
+        } else {
+            console.error('Elemento do carrinho não encontrado.');
+        }
+    }
+
+    // Função para inicializar o carrinho de compras
+    function inicializarCarrinho() {
+        limparCarrinhoAoRecarregar(); // Limpa o carrinho ao recarregar a página
+        const carrinhoDeCompras = obterCarrinhoDeCompras();
+        atualizarCarrinho(carrinhoDeCompras); // Exibe o carrinho de compras inicialmente
+    }
+
+    // Chama a função para atualizar os produtos e exibir o carrinho inicialmente
+    carregarProdutos();
+    inicializarCarrinho();
 });

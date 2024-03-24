@@ -417,3 +417,38 @@ section {
 }
 
 
+/* BARRA LATERAL CARRINHO DE COMPRAS */
+
+.sidebar {
+    position: fixed;
+    top: 80px; /* Altura do cabeçalho + margem de separação */
+    right: 0;
+    width: 350px; /* Largura desejada */
+    height: calc(100% - 80px); /* Altura da janela menos a altura do cabeçalho */
+    background-color: #fff; /* Cor de fundo desejada */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra do lado esquerdo */
+    padding: 20px; /* Preenchimento interno */
+    z-index: 999; /* Certifique-se de que a barra lateral esteja acima de outros elementos */
+    overflow-y: auto; /* Permitir rolagem vertical, se necessário */
+}
+
+
+.sidebar h2 {
+    font-size: 24px; /* tamanho da fonte do título */
+    color: #000; /* cor do texto do título */
+    margin-bottom: 20px; /* espaço abaixo do título */
+    z-index: 1000; /* garantir que o título esteja acima de outros conteúdos */
+}
+
+.produto-imagem {
+    max-width: 100px; /* Defina o tamanho máximo desejado para a largura da imagem */
+    height: auto; /* Isso manterá a proporção original da imagem */
+}
+
+
+
+
+
+
+
+

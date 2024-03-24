@@ -97,14 +97,17 @@ function renderizarResultados(resultados) {
         searchResults.appendChild(divProduto);
     });
 
+    // elemento que faz tudo que tiver .produto receber o click
     let produtoElemento = document.querySelectorAll(".produto");
     produtoElemento.forEach(element => {
         element.addEventListener('click', () => {
             produtoClick(element);
+            
         })
     });
 }
 
+// função que recebe o click no produto pesquisado fazendo com que, quando foi clicado  feche a caixa de pesquisa e coloque um focus no produto pesquisado e role até onde o produto está localizado na página
 function produtoClick(element) {
     searchBox.classList.add("hidden");
     backdrop.classList.add("hidden");
@@ -114,9 +117,24 @@ function produtoClick(element) {
         produto.classList.remove('focus');
         if (produto.id === element.id) {
             produto.classList.add('focus');
+
+            // Role a página até o produto clicado, colocando-o no topo da janela
+            const rect = produto.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const targetTop = rect.top + scrollTop;
+            window.scrollTo({
+                top: targetTop - 100, // Ajuste conforme necessário para considerar a altura de outros elementos fixos na página
+                behavior: 'smooth'
+            });
+
+            // Remover o foco após 3 segundos (3000 milissegundos)
+            setTimeout(() => {
+                produto.classList.remove('focus');
+            }, 3000);
         }
     });
 }
+
 
 // Event listener para detectar quando o usuário digitar na barra de pesquisa
 document.getElementById('search-input').addEventListener('input', function (event) {
