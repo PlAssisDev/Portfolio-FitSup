@@ -410,8 +410,7 @@ section {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+
     background-color: rgba(0, 0, 0, 0.5); /* Cor escura com transparência */
     z-index: 999; /* Certifique-se de que o fundo escurecido está abaixo da caixa de pesquisa */
 }
@@ -440,10 +439,66 @@ section {
     z-index: 1000; /* garantir que o título esteja acima de outros conteúdos */
 }
 
-.produto-imagem {
-    max-width: 100px; /* Defina o tamanho máximo desejado para a largura da imagem */
-    height: auto; /* Isso manterá a proporção original da imagem */
+
+/* EXIBIÇÃO DOS PRODUTOS E BOTÕES */
+
+.produto-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
 }
+
+.produto-imagem-container {
+    flex: 0 0 auto;
+    margin-right: 20px;
+}
+
+.produto-imagem {
+    width: 100px; /* Ajuste conforme necessário */
+    height: 100px; /* Ajuste conforme necessário */
+    object-fit: contain;
+}
+
+.produto-info {
+    flex: 1 1 auto;
+}
+
+.botoes-quantidade {
+    display: flex;
+    align-items: center;
+    
+}
+
+.botao-adicionar,
+.botao-minus {
+    font-size: 20px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.botao-adicionar:hover,
+.botao-minus:hover {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+
+.produto-preco {
+    margin-top: 5px;
+}
+
+.produto-nome {
+    font-weight: bold;
+    margin-bottom: 5px; /* Espaçamento inferior */
+}
+
+
+
+
 
 
 

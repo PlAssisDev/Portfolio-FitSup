@@ -83,55 +83,112 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.removeItem('carrinhoDeCompras');
     }
 
-    // Função para atualizar a exibição do carrinho de compras na interface do usuário
-    function atualizarCarrinho(carrinhoDeCompras) {
-        const carrinhoSidebar = document.getElementById('cart-sidebar');
-        if (carrinhoSidebar) {
-            carrinhoSidebar.innerHTML = '';
+// Função para atualizar a exibição do carrinho de compras na interface do usuário
+function atualizarCarrinho(carrinhoDeCompras) {
+    const carrinhoSidebar = document.getElementById('cart-sidebar');
+    if (carrinhoSidebar) {
+        carrinhoSidebar.innerHTML = '';
 
-            // Adicionar o título do carrinho
-            const tituloCarrinho = document.createElement('h2');
-            tituloCarrinho.textContent = "Seu Carrinho de Compras";
-            carrinhoSidebar.appendChild(tituloCarrinho);
+        // Adicionar o título do carrinho
+        const tituloCarrinho = document.createElement('h2');
+        tituloCarrinho.textContent = "Seu Carrinho de Compras";
+        carrinhoSidebar.appendChild(tituloCarrinho);
 
-            // Crie elementos para cada produto no carrinho e adicione-os ao carrinho na interface do usuário
-            carrinhoDeCompras.forEach(produto => {
-                // Cria um elemento de contêiner para o produto
-                const produtoElemento = document.createElement('div');
-                produtoElemento.classList.add('produto-item');
+        let totalCarrinho = 0; // Inicializa o total do carrinho
 
-                // Adiciona a imagem do produto
-                const img = document.createElement('img');
-                img.src = `/img/${produto.nome}.png`; // Caminho da imagem do produto
-                img.alt = produto.nome; // Texto alternativo para a imagem
-                img.classList.add('produto-imagem'); // Adiciona uma classe para estilização CSS
-                produtoElemento.appendChild(img);
+        // Crie elementos para cada produto no carrinho e adicione-os ao carrinho na interface do usuário
+        carrinhoDeCompras.forEach(produto => {
+            // Cria um elemento de contêiner para o produto
+            const produtoElemento = document.createElement('div');
+            produtoElemento.classList.add('produto-item');
 
-                // Adiciona o nome do produto
-                const nomeProduto = document.createElement('div');
-                nomeProduto.textContent = produto.nome;
-                nomeProduto.classList.add('produto-nome');
-                produtoElemento.appendChild(nomeProduto);
+            // Adiciona a imagem do produto em sua própria div
+            const imagemDiv = document.createElement('div');
+            imagemDiv.classList.add('produto-imagem-container');
 
-                // Adiciona a quantidade do produto
-                const quantidadeProduto = document.createElement('div');
-                quantidadeProduto.textContent = `Quantidade: ${produto.quantidade}`;
-                quantidadeProduto.classList.add('produto-quantidade');
-                produtoElemento.appendChild(quantidadeProduto);
+            const img = document.createElement('img');
+            img.src = `/img/${produto.nome}.png`; // Caminho da imagem do produto
+            img.alt = produto.nome; // Texto alternativo para a imagem
+            img.classList.add('produto-imagem'); // Adiciona uma classe para estilização CSS
+            imagemDiv.appendChild(img);
+            produtoElemento.appendChild(imagemDiv);
 
-                // Adiciona o preço do produto
-                const precoProduto = document.createElement('div');
-                precoProduto.textContent = `Preço: ${produto.preco}`;
-                precoProduto.classList.add('produto-preco');
-                produtoElemento.appendChild(precoProduto);
+            // Cria uma div para as outras informações do produto
+            const infoDiv = document.createElement('div');
+            infoDiv.classList.add('produto-info');
 
-                // Adiciona o produto ao carrinho na interface do usuário
-                carrinhoSidebar.appendChild(produtoElemento);
+            // Adiciona o nome do produto
+            const nomeProduto = document.createElement('div');
+            nomeProduto.textContent = produto.nome;
+            nomeProduto.classList.add('produto-nome');
+            infoDiv.appendChild(nomeProduto);
+
+            // Adiciona o preço do produto
+            const precoProduto = document.createElement('div');
+            precoProduto.textContent = `Preço: ${produto.preco}`;
+            precoProduto.classList.add('produto-preco');
+            infoDiv.appendChild(precoProduto);
+
+            // Adiciona os botões de adicionar e remover quantidade
+            const botoesQuantidade = document.createElement('div');
+            botoesQuantidade.classList.add('botoes-quantidade');
+
+            // Exibe a quantidade do produto
+            const quantidadeProduto = document.createElement('div');
+            quantidadeProduto.textContent = ` Quantidade: ${produto.quantidade}`;
+            quantidadeProduto.classList.add('produto-quantidade');
+            botoesQuantidade.appendChild(quantidadeProduto);
+
+            // Botão "+" para adicionar quantidade
+            const botaoAdicionar = document.createElement('button');
+            botaoAdicionar.textContent = '+';
+            botaoAdicionar.classList.add('botao-adicionar');
+            botaoAdicionar.addEventListener('click', function() {
+                produto.quantidade++;
+                atualizarCarrinho(carrinhoDeCompras);
             });
-        } else {
-            console.error('Elemento do carrinho não encontrado.');
-        }
+            botoesQuantidade.appendChild(botaoAdicionar);
+
+            // Botão "-" para remover quantidade
+            const botaoRemover = document.createElement('button');
+            botaoRemover.textContent = '-';
+            botaoRemover.classList.add('botao-minus');
+            botaoRemover.addEventListener('click', function() {
+                if (produto.quantidade > 1) {
+                    produto.quantidade--;
+                } else {
+                    carrinhoDeCompras = carrinhoDeCompras.filter(item => item.nome !== produto.nome);
+                }
+                atualizarCarrinho(carrinhoDeCompras);
+            });
+            botoesQuantidade.appendChild(botaoRemover);
+
+            infoDiv.appendChild(botoesQuantidade);
+
+            produtoElemento.appendChild(infoDiv);
+
+            // Calcula e exibe o total do produto
+            const totalProduto = parseFloat(produto.preco) * parseInt(produto.quantidade);
+            totalCarrinho += totalProduto;
+
+            // Adiciona o produto ao carrinho na interface do usuário
+            carrinhoSidebar.appendChild(produtoElemento);
+        });
+
+        // Exibe o total do carrinho
+        const totalElemento = document.createElement('div');
+        totalElemento.textContent = `Total: R$ ${totalCarrinho.toFixed(2)}`;
+        totalElemento.classList.add('total-carrinho');
+        carrinhoSidebar.appendChild(totalElemento);
+    } else {
+        console.error('Elemento do carrinho não encontrado.');
     }
+}
+
+
+
+
+
 
     // Função para inicializar o carrinho de compras
     function inicializarCarrinho() {
