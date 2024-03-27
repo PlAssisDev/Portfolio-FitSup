@@ -7,19 +7,24 @@ const searchIcon = document.getElementById("search-icon");
 const searchBox = document.getElementById("search-box");
 const backdrop = document.getElementById("backdrop");
 
-// Adicionando evento de clique ao ícone de pesquisa
+// Exibindo a caixa de pesquisa e o fundo escurecido ao clicar no ícone de pesquisa
 searchIcon.addEventListener("click", function () {
-    // Exibindo a caixa de pesquisa e o fundo escurecido ao clicar no ícone de pesquisa
     searchBox.classList.remove("hidden");
     backdrop.classList.remove("hidden");
+    backdrop.classList.add("dark"); // Adicionando classe para escurecer o fundo
 });
 
-// Adicionando evento de clique ao fundo escurecido para fechar a caixa de pesquisa
-backdrop.addEventListener("click", function () {
-    // Escondendo a caixa de pesquisa e o fundo escurecido ao clicar fora da caixa de pesquisa
-    searchBox.classList.add("hidden");
-    backdrop.classList.add("hidden");
+// Escondendo a caixa de pesquisa e o fundo escurecido ao clicar fora da caixa de pesquisa
+document.addEventListener("click", function (event) {
+    if (!searchBox.contains(event.target) && event.target !== searchIcon) {
+        searchBox.classList.add("hidden");
+        backdrop.classList.add("hidden");
+        backdrop.classList.remove("dark"); // Removendo classe para escurecer o fundo
+    }
 });
+
+
+
 
 /* Fim caixa branca */
 
@@ -102,7 +107,6 @@ function renderizarResultados(resultados) {
     produtoElemento.forEach(element => {
         element.addEventListener('click', () => {
             produtoClick(element);
-            
         })
     });
 }
