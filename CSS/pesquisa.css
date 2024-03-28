@@ -42,13 +42,20 @@ body {
     margin-top: 10px;
 }
 
+/* Estilos para o fundo escurecido */
 #backdrop {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 998;
-    display: none;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo escurecido */
+    z-index: 10;
+    display: none; /* Inicialmente oculto */
 }
+
+/* Classe para escurecer o fundo */
+.dark {
+    display: block; /* Exibir quando a classe é adicionada */
+}
+

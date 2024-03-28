@@ -56,7 +56,6 @@ body {
 }
 
 
-
 header {
     width: 100%;
     top: 0;
@@ -77,14 +76,17 @@ header {
     font-size: var(--main-font);
     font-weight: 600;
     line-height: 0.8;
+    font-style: italic;
 }
 
 .f-letter {
     color: #F7002B;
+    font-style: italic;
 }
 
 .s-letter {
     color: #009ADC;
+    font-style: italic;
 }
 
 #menu-icon {

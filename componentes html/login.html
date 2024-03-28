@@ -12,8 +12,8 @@
         <div id="login-form" class="form-container active">
             <h2>Login</h2>
             <form id="login-form">
-                <input type="email" id="login-email" placeholder="E-mail" required>
-                <input type="password" id="login-password" placeholder="Senha" required>
+                <input type="email" id="login-email" placeholder="E-mail" required autocomplete="email">
+                <input type="password" id="login-password" placeholder="Senha" required autocomplete="current-password">
                 <button type="submit">Entrar</button>
             </form>
             <div class="logHome">
@@ -24,6 +24,7 @@
     </div>
 
     <!-- Seus scripts JavaScript -->
-    <script src="/Scripts/login.js"></script> <!-- Adicione o arquivo JavaScript -->
+    <script src="/scripts/login.js"></script> <!-- Adicione o arquivo JavaScript -->
+    <script src="/scripts/auth.js"></script> <!-- Adicione o arquivo JavaScript de autenticação -->
 </body>
 </html>

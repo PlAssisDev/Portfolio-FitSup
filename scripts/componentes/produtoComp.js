@@ -168,26 +168,18 @@ function atualizarCarrinho(carrinhoDeCompras) {
             produtoElemento.appendChild(infoDiv);
 
             // Calcula e exibe o total do produto
-            const totalProduto = parseFloat(produto.preco) * parseInt(produto.quantidade);
+            const precoNumerico = parseFloat(produto.preco.replace(',', '.')); // Converte o preço para um número
+            const totalProduto = precoNumerico * produto.quantidade;
             totalCarrinho += totalProduto;
 
             // Adiciona o produto ao carrinho na interface do usuário
             carrinhoSidebar.appendChild(produtoElemento);
         });
 
-        // Exibe o total do carrinho
-        const totalElemento = document.createElement('div');
-        totalElemento.textContent = `Total: R$ ${totalCarrinho.toFixed(2)}`;
-        totalElemento.classList.add('total-carrinho');
-        carrinhoSidebar.appendChild(totalElemento);
     } else {
         console.error('Elemento do carrinho não encontrado.');
     }
 }
-
-
-
-
 
 
     // Função para inicializar o carrinho de compras

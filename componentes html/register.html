@@ -12,20 +12,19 @@
         <div id="register-form" class="form-container active">
             <h2>Registro</h2>
             <form id="register-form">
-                <input type="text" id="register-name" placeholder="Nome" required>
-                <input type="email" id="register-email" placeholder="E-mail" required>
-                <input type="password" id="register-password" placeholder="Senha" required>
+                <input type="email" id="register-email" placeholder="E-mail" required autocomplete="email">
+                <input type="password" id="register-password" placeholder="Senha" required autocomplete="new-password">
                 <button type="submit">Registrar</button>
             </form>
             <div class="regHome">
                 <p>Já tem uma conta? <a href="/componentes html/login.html" id="login-tab">Login</a></p>
                 <p><a href="/index.html">Home</a></p>
             </div>
-            
         </div>
     </div>
 
     <!-- Seus scripts JavaScript -->
     <script src="/scripts/register.js"></script>
+    <script src="/scripts/auth.js"></script>
 </body>
 </html>
